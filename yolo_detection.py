@@ -42,11 +42,10 @@ class CurrencyNotesDetection:
         print("Using Device:", self.device)
 
     def load_model(self, model_name):
-        """
-        Loads Yolo5 model from pytorch hub.
-        :return: Custom trained Pytorch model.
-        """
-        model = torch.hub.load('./yolov5', 'custom', path=model_name, source='local')  # local repo
+        # Load the model directly from the file path
+        # The 'map_location' ensures it loads correctly on CPU or GPU
+        model = torch.load(model_name, map_location=self.device)['model'].float()
+        model.eval()  # Set the model to evaluation mode
         return model
 
     def class_to_label(self, x):
@@ -159,8 +158,8 @@ class CurrencyNotesDetection:
 
 
 def run_model(img):
-    obj = CurrencyNotesDetection(
-        model_name='./yolov5/runs/train/exp/weights/best.pt'
-    )
-    detected_img, detected_labels_text, raw_labels, confidence_scores = obj.get_detected_image(img)
+    # Use a relative path to the model file
+    model_path = os.path.join(os.getcwd(), 'yolov5', 'runs', 'train', 'exp', 'weights', 'best.pt')
+    obj = CurrencyNotesDetection(model_path)
+    labels_text, raw_labels, confidence_scores = obj.get_detected_image(img)
     return detected_img, detected_labels_text, raw_labels, confidence_scores
