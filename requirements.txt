@@ -1,10 +1,10 @@
-flask==3.0.3
-pillow==10.4.0
-numpy==1.26.4
-opencv-python-headless==4.10.0.84
-gunicorn==23.0.0
-torch==2.4.0
-torchvision==0.19.0
+flask
+pillow
+numpy
+opencv-python-headless
+gunicorn
+torch
+torchvision
 pyyaml
 matplotlib
 tqdm
