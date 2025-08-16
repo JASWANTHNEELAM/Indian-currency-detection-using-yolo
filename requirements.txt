@@ -8,3 +8,4 @@ torchvision
 pyyaml
 matplotlib
 tqdm
+googletrans
